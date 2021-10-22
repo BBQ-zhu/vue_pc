@@ -1,0 +1,324 @@
+<template>
+  <div class="box">
+    <div class="flexStart">
+      <div>
+        <img :src="proDetails.productimg" style="width:283px;height:283px;" />
+      </div>
+      <div style="flex:1;margin-top:1px;padding-left:20px;">
+        <div class="flex">
+          <el-tag type="danger" effect="dark">热门</el-tag>
+          <div class="f25 fw600 ml10">{{proDetails.name}}</div>
+        </div>
+        <div class="mt20 color2 f13 textOver2">{{proDetails.description}}</div>
+        <div class="mt20 bgfff" style="padding:12px 10px;">
+          <div class="color2">
+            价格：
+            <span class="f20 colorYellow ml10" style="margin-top:4px;">
+              <span class="f16">￥</span>
+              {{proDetails.newprice}}
+            </span>
+          </div>
+          <div class="flexBetween">
+            <div class="color2 mt15">
+              原价：
+              <span
+                class="f16 color2 ml10"
+                style="text-decoration: line-through;"
+              >￥{{proDetails.oldprice}}</span>
+            </div>
+            <div class="color2 f13" style="padding-top:14px;">
+              <i class="colorYellow el-icon-collection-tag mr5"></i>
+              总计销量：{{proDetails.volume}}
+            </div>
+          </div>
+        </div>
+        <div class="flexStart mt30">
+          <div class="btn1" style="background:#11BBB8;color:#fff;" @click="$common.gottkefu()">立即咨询</div>
+          <div class="btn2 ml20" @click="submit()">立即办理</div>
+        </div>
+        <div class="color2 f13" style="margin-top:25px;">
+          <i class="colorYellow el-icon-collection-tag mr5"></i>
+          总计咨询：{{proDetails.consulting}}
+        </div>
+      </div>
+    </div>
+
+    <div class="flexBetween mt20" style="width:100%;">
+      <!-- 热门推荐 -->
+      <div class="flex" style="width:29%;">
+        <div class="bgfff" style="width:100%">
+          <div class="flexBetween f13 p20">
+            <div class="flex">
+              <div class="f20 fw600">热门推荐</div>
+              <!-- <span class="color2 mt3 ml10">人气推荐，10万用户必选服务</span> -->
+            </div>
+            <i class="el-icon-guide mt3 color2 f18"></i>
+          </div>
+          <div class="flexBetween" style="box-sizing:border-box;">
+            <el-carousel indicator-position="none" height="800px" style="width:100%">
+              <el-carousel-item v-for="(item,index) in recomList1" :key="index+'car'">
+                <div class="flexBetween">
+                  <div
+                    class="probg"
+                    style="background: #f0f5f5;margin-bottom:20px"
+                    v-for="(val,ind) in item"
+                    :key="ind+'rem1'"
+                  >
+                    <div class="flex">
+                      <el-tag v-show="ind%2 == 0" class="mr10" type="info">快速高效</el-tag>
+                      <el-tag v-show="ind%2 != 0" class="mr10" type="info">全程托管</el-tag>
+                      <el-tag v-show="ind%2 == 0" class="mr10" type="info">专家顾问</el-tag>
+                      <el-tag v-show="ind%2 != 0" class="mr10" type="info">精选服务</el-tag>
+                    </div>
+                    <div class="f20 fw600 mt10 ml5 flexBetween">
+                      <div>{{val.name}}</div>
+                      <div class="colorYellow">
+                        ￥
+                        <span v-text="$common.moneyFormat(val.newprice)"></span>
+                      </div>
+                    </div>
+                    <div
+                      class="f12 mt15 ml5 color2 textOver2"
+                      style="height:30px;line-height:15px;"
+                    >{{val.description}}</div>
+                    <div class="flexStart mt15">
+                      <div class="btn2" @click="toDetails(val.name)">查看详情</div>
+                    </div>
+                  </div>
+                </div>
+              </el-carousel-item>
+            </el-carousel>
+          </div>
+        </div>
+      </div>
+      <!-- 产品详情 -->
+      <div class="flex" style="width:39%;">
+        <div class="bgfff" style="width:100%">
+          <div class="flexBetween f13 p20">
+            <div class="flex">
+              <div class="f20 fw600">产品详情</div>
+              <span class="color2 mt3 ml10"></span>
+            </div>
+            <i class="el-icon-guide mt3 color2 f18"></i>
+          </div>
+          <div class="flexBetween" style="height:800px;padding:0 20px 20px 20px;overflow-y:auto">
+            <div id="editor" style="width:100%;box-sizing:border-box;" v-html="proDetails.details"></div>
+          </div>
+        </div>
+      </div>
+      <!-- 猜你喜欢 -->
+      <div class="flex" style="width:29%;">
+        <div class="bgfff" style="width:100%">
+          <div class="flexBetween f13 p20">
+            <div class="flex">
+              <div class="f20 fw600">猜你喜欢</div>
+              <!-- <span class="color2 mt3 ml10">全网底价，用心甄选应你所需</span> -->
+            </div>
+            <i class="el-icon-guide mt3 color2 f18"></i>
+          </div>
+          <div class="flexBetween" style="box-sizing:border-box;">
+            <el-carousel indicator-position="none" height="800px" style="width:100%">
+              <el-carousel-item v-for="(item,index) in recomList2" :key="index+'car'">
+                <div class="flexBetween">
+                  <div
+                    class="probg"
+                    style="background: #f0f0f5;margin-bottom:20px"
+                    v-for="(val,ind) in item"
+                    :key="ind+'rem1'"
+                  >
+                    <div class="flex">
+                      <el-tag v-show="ind%2 == 0" class="mr10" type="info">全程托管</el-tag>
+                      <el-tag v-show="ind%2 != 0" class="mr10" type="info">专家顾问</el-tag>
+                      <el-tag v-show="ind%2 == 0" class="mr10" type="info">精选服务</el-tag>
+                      <el-tag v-show="ind%2 != 0" class="mr10" type="info">快速高效</el-tag>
+                    </div>
+                    <div class="f20 fw600 mt10 ml5 flexBetween">
+                      <div>{{val.name}}</div>
+                      <div class="colorYellow">
+                        ￥
+                        <span v-text="$common.moneyFormat(val.newprice)"></span>
+                      </div>
+                    </div>
+                    <div
+                      class="f12 mt15 ml5 color2 textOver2"
+                      style="height:30px;line-height:15px;"
+                    >{{val.description}}</div>
+                    <div class="flexStart mt15">
+                      <div class="btn2" @click="toDetails(val.name)">查看详情</div>
+                    </div>
+                  </div>
+                </div>
+              </el-carousel-item>
+            </el-carousel>
+          </div>
+        </div>
+      </div>
+    </div>
+        <!-- 新闻弹出框 -->
+    <el-dialog
+      title="立即办理"
+      :visible.sync="dialogVisible"
+      width="20%">
+      <div>
+         <el-input v-model="subName" placeholder="请输入姓名"></el-input>
+         <el-input class="mt20" v-model="subPhone" placeholder="请输入手机号"></el-input>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="handling">确 定</el-button>
+      </span>
+    </el-dialog>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    proDetails: Object,
+    defalute: {}
+  },
+  data() {
+    return {
+      recomList1: [],
+      recomList2: [],
+      subName:'',
+      subPhone:'',
+      dialogVisible:false
+    }
+  },
+  async mounted() {
+    await this.findProduct()
+  },
+  methods: {
+    toDetails(name) {
+      this.$router.push({
+        path: '/ProductDetail',
+        query: { name: name }
+      })
+    },
+    submit(){
+      this.dialogVisible = true;
+    },
+    //立即办理
+    handling() {
+      console.log(11)
+      if(!this.subName){
+        this.$message.error('请输入您的姓名')
+        return
+      }else if(!this.subPhone){
+        this.$message.error('请输入您的手机号')
+        return
+      }else if (!/^1[3456789]\d{9}$/.test(this.subPhone)) {
+        this.$message.error('请输入正确的手机号码')
+        return
+      }
+      this.dialogVisible = false
+      var finData = {
+        skip: 0,
+        limit: 9999, 
+        fuzz: "phone",
+        input: this.subPhone,
+      };
+      this.$axios.post(this.$api.findAgent, finData).then((res) => {
+        let arr = res.data[0].data;
+        if (arr.length == 0) {
+          this.createAgent();
+        } else {
+          let key = true;
+          arr.map((item) => {
+            if (this.proDetails._id == item.proid && item.read == "false") {
+              this.$message.error('您的该服务正在处理中')
+              key = false;
+            }
+          });
+          if (key) { 
+            this.createAgent();
+          }
+        }
+      });
+    },
+    createAgent() {
+      let data = {
+        proid: this.proDetails._id,
+        type: this.proDetails.type + "-" + this.proDetails.name, // 数据来源
+        name: this.subName, // 客户名称
+        phone: this.subPhone, // 电话
+        submitby: this.subName, // 提交人
+        handler: "all", // 处理人
+        path: "/Integrate", // 跳转至综合服务
+        read: "false", // 是否已处理
+      };
+      this.$axios.post(this.$api.createAgent, data).then((res) => {
+        if (res.code == 200) {
+          this.$message.success('业务经理稍后为您服务')
+        }
+      });
+    },
+    async findProduct() {
+      var data = {
+        skip: 0,
+        limit: 9999999,
+        fuzz: 'recommend',
+        input: '推荐'
+      }
+      await this.$axios.post(this.$api.findProduct, data).then(res => {
+        let arr = res.data[0].data
+        arr = arr.concat(arr).concat(arr)
+
+        let newArr1 = []
+        let newArr2 = []
+        arr.map((item, index) => {
+          if (index % 2 == 0) {
+            newArr1.push(item)
+          } else {
+            newArr2.push(item)
+          }
+        })
+        for (let i = 0; i < newArr1.length; i += 4) {
+          this.recomList1.push(newArr1.slice(i, i + 4))
+        }
+        for (let i = 0; i < newArr2.length; i += 4) {
+          this.recomList2.push(newArr2.slice(i, i + 4))
+        }
+      })
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+::v-deep .el-dialog__header{
+  border-bottom:2px solid rgb(228, 231, 237);
+}
+.editor > p img {
+  width: 100px;
+}
+.box {
+  width: 70%;
+  margin: 0 auto;
+  padding: 25px;
+  box-sizing: border-box;
+  // background:red;
+}
+::-webkit-scrollbar {
+  width: 0px;
+  /* 纵向滚动条*/
+  height: 0px;
+  /* 横向滚动条 */
+  background-color: #fff;
+}
+::v-deep .el-tag {
+  padding: 0 10px;
+  height: 25px;
+  line-height: 25px;
+}
+.probg {
+  width: 84%;
+  min-width: 200px;
+  margin-top: 4%;
+  margin: 0 auto;
+  height: 180px;
+  padding: 16px;
+  box-sizing: border-box;
+}
+</style>
