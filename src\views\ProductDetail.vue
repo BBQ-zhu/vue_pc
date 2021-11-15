@@ -10,21 +10,21 @@
     <div class="width90 flex " style="width:100%;">
       <Product :proDetails="proDetails"></Product>
     </div>
-
+ 
     <!-- 咨询、顾问 -->
     <div class="width90 flex bgfff poRelative">
       <Sign></Sign>
       <Consultant style="position:absolute;top:20px;right:4%;"></Consultant>
     </div>
     <!-- 推荐产品 -->
-    <!-- <div class="width90 flex">
+    <div class="width90 flex">
       <Recommend></Recommend>
-    </div> -->
+    </div>
 
     <!-- 照片墙 -->
-    <!-- <div class="width90" style="width:100%;padding-bottom:60px;background:#1d1c24;margin-top:-20px;">
+    <div class="width90" style="width:100%;padding-bottom:60px;background:#1d1c24;margin-top:-20px;">
       <PhotoWall></PhotoWall>
-    </div> -->
+    </div>
     <!-- 新闻列表 -->
     <div class="width90" style="margin-top:40px;">
       <div class="f25 fw600 textCenter">企业资讯</div>
