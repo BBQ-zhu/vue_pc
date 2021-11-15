@@ -74,6 +74,23 @@ export default {
       erweimaList:[], //二维码
     }
   },
+  created() {
+    //判断是移动端还是PC端，并做跳转
+    var ua = window.navigator.userAgent.toLowerCase()
+    if (
+      !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      )
+    ) {
+      // PC端
+      console.log('PC端')
+    } else if (ua.indexOf('iphone') > 0 || ua.indexOf('android') > 0) {
+      // 移动端
+      console.log('移动端')
+      window.location.href = "zla.zhulif.com";
+      // window.location.href = "http://localhost:8081/";
+    }
+  },
   async mounted() {
     await this.findClass();
   },
