@@ -87,8 +87,8 @@ export default {
     } else if (ua.indexOf('iphone') > 0 || ua.indexOf('android') > 0) {
       // 移动端
       console.log('移动端')
-      window.location.href = "zla.zhulif.com";
-      // window.location.href = "http://localhost:8081/";
+      // window.location.href = "zla.zhulif.com";
+      window.location.href = "http://localhost:8081/";
     }
   },
   async mounted() {
