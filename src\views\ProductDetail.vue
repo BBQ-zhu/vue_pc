@@ -9,7 +9,7 @@
     <!-- 产品详情 -->
     <div class="width90 flex " style="width:100%;">
       <Product :proDetails="proDetails"></Product>
-    </div>
+    </div> 
  
     <!-- 咨询、顾问 -->
     <div class="width90 flex bgfff poRelative">
