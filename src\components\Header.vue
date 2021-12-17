@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="flexBetween box">
-      <img v-if="logoList[0]" :src="logoList[0].scroimg" />
+      <img v-if="logoList[0]" :src="logoList[0].scroimg" style="width:200px"/>
       <div class="search flex">
         <el-autocomplete
           style="width: 500px"
@@ -30,10 +30,11 @@
           <span class="serveBtn">工商注册</span>
           <span class="serveBtn">商标</span>
           <span class="serveBtn">代理记账</span>
-          <span class="serveBtn">法律</span>
+          <span class="serveBtn">贷款</span>
+          <span class="serveBtn">融资</span>
         </div>
       </div>
-      <img v-if="logoList[1]" :src="logoList[1].scroimg" />
+      <img v-if="logoList[1]" :src="logoList[1].scroimg" style="width:200px"/>
     </div>
   </div>
 </template>
