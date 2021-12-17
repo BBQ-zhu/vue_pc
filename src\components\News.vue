@@ -87,6 +87,7 @@
     </el-dialog>
     <!-- 招聘弹出框 -->
     <el-dialog title="招聘详情" :visible.sync="dialogVisible2" width="30%">
+      <div class="f18 fw600 mb20">{{educatDetails.companyname}}</div>
       <div class="flexBetween f18 fw600">
         <span>{{educatDetails.name}}</span>
         <span class="colorYellow">{{educatDetails.salary}}</span>
@@ -144,9 +145,6 @@ export default {
       }
       await this.$axios.post(this.$api.findNews, data).then(res => {
         let arr = res.data[0].data
-        arr = arr.concat(arr).concat(arr)
-        arr = arr.concat(arr).concat(arr)
-
         for (let i = 0; i < arr.length; i += 12) {
           this.recomList1.push(arr.slice(i, i + 12))
         }
@@ -159,9 +157,6 @@ export default {
       }
       await this.$axios.post(this.$api.findRecruiting, data).then(res => {
         let arr = res.data[0].data
-        arr = arr.concat(arr).concat(arr)
-        arr = arr.concat(arr).concat(arr)
-
         for (let i = 0; i < arr.length; i += 12) {
           this.recomList2.push(arr.slice(i, i + 4))
         }
