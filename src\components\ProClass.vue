@@ -32,7 +32,7 @@
             </div>
             <div class="flex color0 ml5 mt30">
               <i class="el-icon-success"></i>
-              <div class="ml10 ">无隐形费用</div>
+              <div class="ml10 ">信息安全</div>
             </div>
             <i class="el-icon-right f20 color0" style="position:absolute;bottom:8px;right:8px;"></i>
           </div>
@@ -42,16 +42,13 @@
               :key="index+'car'"
               style="margin-left:1.5%;"
             >
-              <div class="flexStart">
+              <div class="flexStart"> 
                 <div class="probg huiBtn" v-for="(val,ind) in item" :key="ind+'rem1'">
                   <div class="flex">
-                    <el-tag v-show="ind%2 != 0" class="mr10" type="danger">爆款推荐</el-tag>
-                    <el-tag v-show="ind%2 == 0" class="mr10" type="danger">热门服务</el-tag>
-                    <el-tag v-show="ind%2 == 0" class="mr10" type="info">全网甄选</el-tag>
-                    <el-tag v-show="ind%2 != 0" class="mr10" type="info">精品服务</el-tag>
+                    <el-tag v-for="tag in val.recomintro" :key="tag" class="mr10 mb10" type="info">{{tag}}</el-tag>
                   </div>
-                  <div class="mt10 ml5 flexBetween">
-                    <div class="f20 fw600">{{val.name}}</div>
+                  <div class=" ml5 flexBetween">
+                    <div class="f20 fw600 textOver1">{{val.name}}</div>
                   </div>
                   <div
                     class="f12 mt15 ml5 color2 textOver2"
@@ -59,12 +56,9 @@
                   >{{val.description}}</div>
                   <div class="flexBetween mt15">
                     <div class="flex">
-                    <div class="colorYellow f20 fw600 mt6">
+                    <div v-if="val.newprice" class="colorYellow f20 fw600 mt6">
                       ￥<span v-text="$common.moneyFormat(val.newprice)"></span>
                     </div>
-                    <!-- <div class="color2 f13 mt8 ml10" style=" text-decoration:line-through">
-                      ￥<span v-text="$common.moneyFormat(val.oldprice)"></span>
-                    </div> -->
                     </div>
                     <div class="btn2" @click="toDetails(val.name)">查看详情</div>
                   </div>
@@ -141,8 +135,6 @@ export default {
       this.$axios.post(this.$api.findProduct, data).then(res => {
         this.recomList = []
         let arr = res.data[0].data
-        arr = arr.concat(arr).concat(arr)
-        arr = arr.concat(arr).concat(arr)
         for (let i = 0; i < arr.length; i += 8) {
           this.recomList.push(arr.slice(i, i + 8))
         }
@@ -155,7 +147,7 @@ export default {
 <style lang="scss" scoped>
 .probg {
   width: 23%;
-  min-width:255px;
+  min-width:300px;
   margin-top: 1%;
   margin-left: 1%;
   height: 180px;
