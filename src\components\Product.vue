@@ -6,11 +6,16 @@
       </div>
       <div style="flex:1;margin-top:1px;padding-left:20px;">
         <div class="flex">
-          <el-tag type="danger" effect="dark">热门</el-tag>
-          <div class="f25 fw600 ml10">{{proDetails.name}}</div>
+          <div class="f25 fw600 mt2">{{proDetails.name}}</div>
+          <el-tag
+            v-if="proDetails.recomtype"
+            class="ml10"
+            type="danger"
+            effect="dark"
+          >{{proDetails.recomtype}}</el-tag>
         </div>
         <div class="mt20 color2 f13 textOver2">{{proDetails.description}}</div>
-        <div class="mt20 bgfff" style="padding:12px 10px;">
+        <div v-if="proDetails.newprice" class="mt20 bgfff" style="padding:12px 10px;">
           <div class="color2">
             价格：
             <span class="f20 colorYellow ml10" style="margin-top:4px;">
@@ -18,7 +23,7 @@
               {{proDetails.newprice}}
             </span>
           </div>
-          <div class="flexBetween">
+          <div v-if="proDetails.oldprice" class="flexBetween">
             <div class="color2 mt15">
               原价：
               <span
@@ -28,7 +33,7 @@
             </div>
             <div class="color2 f13" style="padding-top:14px;">
               <i class="colorYellow el-icon-collection-tag mr5"></i>
-              总计销量：{{proDetails.volume}}
+              浏览量：{{proDetails.volume}}
             </div>
           </div>
         </div>
@@ -36,7 +41,7 @@
           <div class="btn1" style="background:#11BBB8;color:#fff;" @click="$common.gottkefu()">立即咨询</div>
           <div class="btn2 ml20" @click="submit()">立即办理</div>
         </div>
-        <div class="color2 f13" style="margin-top:25px;">
+        <div v-if="proDetails.consulting" class="color2 f13" style="margin-top:25px;">
           <i class="colorYellow el-icon-collection-tag mr5"></i>
           总计咨询：{{proDetails.consulting}}
         </div>
@@ -84,7 +89,6 @@
                 >({{ proDetails.key.replace("选中的", "以下要求") }})</span>
               </span>
             </div>
-            <!-- <i class="el-icon-guide mt3 color2 f18"></i> -->
           </div>
           <span class="f16 color2" style="box-sizing:border-box;display:block;padding:0 20px;">
             <div v-if="proDetails.age && proDetails.match.includes('age')" class="borderBom">
@@ -106,6 +110,64 @@
               <span
                 class="colorYellow fw600 ml5"
               >{{ proDetails.address[0] }}-{{ proDetails.address[1] }}</span>
+            </div>
+            <div
+              v-if="
+            proDetails.houses &&
+            proDetails.houses.length &&
+            proDetails.match.includes('houses')
+          "
+              class="borderBom"
+            >
+              <span>是否需要有房:</span>
+              <span class="colorYellow fw600 ml10 mt3">
+                {{
+                proDetails.houses
+                }}
+              </span>
+            </div>
+            <div
+              v-if="
+            proDetails.car && proDetails.car.length && proDetails.match.includes('car')
+          "
+              class="borderBom"
+            >
+              <span>是否需要有车:</span>
+              <span class="colorYellow fw600 ml10 mt3">
+                {{
+                proDetails.car
+                }}
+              </span>
+            </div>
+            <div
+              v-if="
+            proDetails.policy &&
+            proDetails.policy.length &&
+            proDetails.match.includes('policy')
+          "
+              class="borderBom"
+            >
+              <span>是否需要有商保:</span>
+              <span class="colorYellow fw600 ml10 mt3">
+                {{
+                proDetails.policy
+                }}
+              </span>
+            </div>
+            <div
+              v-if="
+            proDetails.credit &&
+            proDetails.credit.length &&
+            proDetails.match.includes('credit')
+          "
+              class="borderBom"
+            >
+              <span>是否需要有信用卡:</span>
+              <span class="colorYellow fw600 ml10 mt3">
+                {{
+                proDetails.credit
+                }}
+              </span>
             </div>
             <div
               v-if="
@@ -134,49 +196,6 @@
               <span class="colorYellow fw600 mt3">
                 {{
                 proDetails.provident.join("、")
-                }}
-              </span>
-            </div>
-            <div
-              v-if="
-            proDetails.houses &&
-            proDetails.houses.length &&
-            proDetails.match.includes('houses')
-          "
-              class="borderBom"
-            >
-              <span>房屋(至少满足以下任意一项)：</span>
-              <span class="colorYellow fw600 mt3">
-                {{
-                proDetails.houses.join("、")
-                }}
-              </span>
-            </div>
-            <div
-              v-if="
-            proDetails.car && proDetails.car.length && proDetails.match.includes('car')
-          "
-              class="borderBom"
-            >
-              <span>车辆(至少满足以下任意一项)：</span>
-              <span class="colorYellow fw600 mt3">
-                {{
-                proDetails.car.join("、")
-                }}
-              </span>
-            </div>
-            <div
-              v-if="
-            proDetails.policy &&
-            proDetails.policy.length &&
-            proDetails.match.includes('policy')
-          "
-              class="borderBom"
-            >
-              <span>商业险(至少满足以下任意一项)：</span>
-              <span class="colorYellow fw600 mt3">
-                {{
-                proDetails.policy.join("、")
                 }}
               </span>
             </div>
@@ -212,61 +231,24 @@
             </div>
             <div
               v-if="
-            proDetails.credit &&
-            proDetails.credit.length &&
-            proDetails.match.includes('credit')
+            proDetails.social &&
+            proDetails.social.length &&
+            proDetails.match.includes('social')
           "
               class="borderBom"
             >
-              <span>信用卡(至少满足以下任意一项)：</span>
+              <span>职业要求(至少满足以下任意一项)：</span>
               <span class="colorYellow fw600 mt3">
                 {{
-                proDetails.credit.join("、")
+                proDetails.hires.join("、")
                 }}
               </span>
             </div>
-            <div
-              v-if="
-            proDetails.tobacco &&
-            proDetails.tobacco.length &&
-            proDetails.match.includes('tobacco')
-          "
-              class="borderBom"
-            >
-              <span>烟草证(至少满足以下任意一项)：</span>
+            <div v-if="proDetails.tobacco" class="borderBom">
+              <span>是否需要烟草证：</span>
               <span class="colorYellow fw600 mt3">
                 {{
-                proDetails.tobacco.join("、")
-                }}
-              </span>
-            </div>
-            <div
-              v-if="
-            proDetails.enterprise &&
-            proDetails.enterprise.length &&
-            proDetails.match.includes('enterprise')
-          "
-              class="borderBom"
-            >
-              <span>企业税贷(至少满足以下任意一项)：</span>
-              <span class="colorYellow fw600 mt3">
-                {{
-                proDetails.enterprise.join("、")
-                }}
-              </span>
-            </div>
-            <div
-              v-if="
-            proDetails.ticket &&
-            proDetails.ticket.length &&
-            proDetails.match.includes('ticket')
-          "
-              class="borderBom"
-            >
-              <span>企业票贷(至少满足以下任意一项)：</span>
-              <span class="colorYellow fw600 mt3">
-                {{
-                proDetails.ticket.join("、")
+                proDetails.tobacco
                 }}
               </span>
             </div>
@@ -283,6 +265,214 @@
             </div>
           </span>
         </div>
+        <!-- 企业要求 -->
+        <div
+          class="bgfff"
+          style="width:100%"
+          v-if="
+              proDetails.match.includes('identity') || 
+              proDetails.match.includes('establishment') || 
+              proDetails.match.includes('invoicing') || 
+              proDetails.match.includes('taxrecord') || 
+              proDetails.match.includes('grade') || 
+              proDetails.match.includes('paying') || 
+              proDetails.match.includes('enterprise') || 
+              proDetails.match.includes('ticket') 
+              "
+        >
+          <div class="flexBetween f13 p20">
+            <div class="flex">
+              <div class="f20 fw600">企业要求</div>
+            </div>
+          </div>
+          <div class="color2" style="box-sizing:border-box;padding:0 20px 20px 20px;">
+            <div
+              v-if="
+            proDetails.identity &&
+            proDetails.identity.length &&
+            proDetails.match.includes('identity')
+          "
+              class="borderBom"
+            >
+              <span>需要为法人或是股东(至少满足以下任意一项)：</span>
+              <span class="colorYellow fw600 mt3">
+                {{
+                proDetails.identity.join("、")
+                }}
+              </span>
+            </div>
+            <div
+              v-if="
+            proDetails.establishment &&
+            proDetails.establishment.length &&
+            proDetails.match.includes('establishment')
+          "
+              class="borderBom"
+            >
+              <span>企业成立时间(至少满足以下任意一项)：</span>
+              <span class="colorYellow fw600 mt3">
+                {{
+                proDetails.establishment.join("、")
+                }}
+              </span>
+            </div>
+            <div
+              v-if="
+            proDetails.invoicing &&
+            proDetails.invoicing.length &&
+            proDetails.match.includes('invoicing')
+          "
+              class="borderBom"
+            >
+              <span>年开票金额(至少满足以下任意一项)：</span>
+              <span class="colorYellow fw600 mt3">
+                {{
+                proDetails.invoicing.join("、")
+                }}
+              </span>
+            </div>
+            <div
+              v-if="
+            proDetails.taxrecord &&
+            proDetails.taxrecord.length &&
+            proDetails.match.includes('taxrecord')
+          "
+              class="borderBom"
+            >
+              <span>开票记录(至少满足以下任意一项)：</span>
+              <span class="colorYellow fw600 mt3">
+                {{
+                proDetails.taxrecord.join("、")
+                }}
+              </span>
+            </div>
+            <div
+              v-if="
+            proDetails.grade &&
+            proDetails.grade.length &&
+            proDetails.match.includes('grade')
+          "
+              class="borderBom"
+            >
+              <span>纳税等级(至少满足以下任意一项)：</span>
+              <span class="colorYellow fw600 mt3">
+                {{
+                proDetails.grade.join("、")
+                }}
+              </span>
+            </div>
+            <div
+              v-if="
+            proDetails.paying &&
+            proDetails.paying.length &&
+            proDetails.match.includes('paying')
+          "
+              class="borderBom"
+            >
+              <span>年纳税金额(至少满足以下任意一项)：</span>
+              <span class="colorYellow fw600 mt3">
+                {{
+                proDetails.paying.join("、")
+                }}
+              </span>
+            </div>
+            <div
+              v-if="
+            proDetails.enterprise &&
+            proDetails.enterprise.length &&
+            proDetails.match.includes('enterprise')
+          "
+              class="borderBom"
+            >
+              <span>法人/股东变更(至少满足以下任意一项)：</span>
+              <span class="colorYellow fw600 mt3">
+                {{
+                proDetails.enterprise.join("、")
+                }}
+              </span>
+            </div>
+            <div
+              v-if="
+            proDetails.ticket &&
+            proDetails.ticket.length &&
+            proDetails.match.includes('ticket')
+          "
+              class="borderBom"
+            >
+              <span>法人/股东占股(至少满足以下任意一项)：</span>
+              <span class="colorYellow fw600 mt3">
+                {{
+                proDetails.ticket.join("、")
+                }}
+              </span>
+            </div>
+          </div>
+        </div>
+        <!-- 烟草证要求 -->
+        <div
+          class="bgfff"
+          style="width:100%"
+          v-if="proDetails.match.includes('tobaccotime') || proDetails.match.includes('volumesmoke') ||proDetails.match.includes('tobaccorank') "
+        >
+          <div class="flexBetween f13 p20">
+            <div class="flex">
+              <div class="f20 fw600">烟草证要求</div>
+            </div>
+          </div>
+          <div class="color2" style="box-sizing:border-box;padding:0 20px 20px 20px;">
+            <div
+            v-if="
+            proDetails.tobaccotime &&
+            proDetails.tobaccotime.length &&
+            proDetails.match.includes('tobaccotime')
+          "
+            class="borderBom"
+          >
+            <span>
+              办证时间(至少满足以下任意一项)：
+            </span>
+            <span class="colorYellow fw600 mt3">
+              {{
+              proDetails.tobaccotime.join("、")
+              }}
+            </span>
+          </div>
+          <div
+            v-if="
+            proDetails.volumesmoke &&
+            proDetails.volumesmoke.length &&
+            proDetails.match.includes('volumesmoke')
+          "
+            class="borderBom"
+          >
+            <span>
+              月开烟量(至少满足以下任意一项)：
+            </span>
+            <span class="colorYellow fw600 mt3">
+              {{
+              proDetails.volumesmoke.join("、")
+              }}
+            </span>
+          </div>
+          <div
+            v-if="
+            proDetails.tobaccorank &&
+            proDetails.tobaccorank.length &&
+            proDetails.match.includes('tobaccorank')
+          "
+            class="borderBom"
+          >
+            <span>
+              烟草证等级(至少满足以下任意一项)：
+            </span>
+            <span class="colorYellow fw600 mt3">
+              {{
+              proDetails.tobaccorank.join("、")
+              }}
+            </span>
+          </div>
+          </div>
+        </div>
         <!-- 办理所需资料 -->
         <div class="bgfff" style="width:100%">
           <div class="flexBetween f13 p20">
@@ -297,7 +487,7 @@
               <el-tag
                 v-for="item in proDetails.demand"
                 :key="item"
-                type=""
+                type
                 class="mr10 mb10"
                 size="medium"
               >{{item}}</el-tag>
@@ -338,14 +528,16 @@
                     :key="ind+'rem1'"
                   >
                     <div class="flex">
-                      <el-tag v-show="ind%2 == 0" class="mr10" type="info">快速高效</el-tag>
-                      <el-tag v-show="ind%2 != 0" class="mr10" type="info">全程托管</el-tag>
-                      <el-tag v-show="ind%2 == 0" class="mr10" type="info">专家顾问</el-tag>
-                      <el-tag v-show="ind%2 != 0" class="mr10" type="info">精选服务</el-tag>
+                      <el-tag
+                        v-for="tag in val.recomintro"
+                        :key="tag"
+                        class="mr10"
+                        type="info"
+                      >{{tag}}</el-tag>
                     </div>
                     <div class="f20 fw600 mt10 ml5 flexBetween">
                       <div>{{val.name}}</div>
-                      <div class="colorYellow">
+                      <div v-if="val.newprice" class="colorYellow">
                         ￥
                         <span v-text="$common.moneyFormat(val.newprice)"></span>
                       </div>
@@ -404,14 +596,16 @@
                     :key="ind+'rem1'"
                   >
                     <div class="flex">
-                      <el-tag v-show="ind%2 == 0" class="mr10" type="info">全程托管</el-tag>
-                      <el-tag v-show="ind%2 != 0" class="mr10" type="info">专家顾问</el-tag>
-                      <el-tag v-show="ind%2 == 0" class="mr10" type="info">精选服务</el-tag>
-                      <el-tag v-show="ind%2 != 0" class="mr10" type="info">快速高效</el-tag>
+                      <el-tag
+                        v-for="tag in val.recomintro"
+                        :key="tag"
+                        class="mr10"
+                        type="info"
+                      >{{tag}}</el-tag>
                     </div>
                     <div class="f20 fw600 mt10 ml5 flexBetween">
                       <div>{{val.name}}</div>
-                      <div class="colorYellow">
+                      <div v-if="val.newprice" class="colorYellow">
                         ￥
                         <span v-text="$common.moneyFormat(val.newprice)"></span>
                       </div>
@@ -537,8 +731,6 @@ export default {
       }
       await this.$axios.post(this.$api.findProduct, data).then(res => {
         let arr = res.data[0].data
-        arr = arr.concat(arr).concat(arr)
-
         let newArr1 = []
         let newArr2 = []
         arr.map((item, index) => {
