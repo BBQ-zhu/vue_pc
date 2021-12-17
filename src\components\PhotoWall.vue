@@ -1,6 +1,6 @@
 <template>
   <div class="box">
-    <div class="f25 fw600 color0 textCenter " style="padding-top:40px">服务顾问</div>
+    <div class="f25 fw600 color0 textCenter " style="padding-top:40px">资深顾问</div>
     <div class="color0 textCenter pt20">3000+专业顾问团队,实时为您提供最专业的免费咨询服务</div>
     <div class="photoWall bgfff flexBetween mt40">
       <div v-for="(item,index) in consultantList" :key="index+'img'">
@@ -68,9 +68,6 @@ export default {
         if (res.code == 200) {
           this.consultantList = [];
           let arr = res.data[0].data
-          arr = arr.concat(arr).concat(arr)
-          arr = arr.concat(arr)
-
           this.consultantList = arr
         }
       });
