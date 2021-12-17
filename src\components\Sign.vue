@@ -32,25 +32,25 @@
       <div class="textCenter">
         <div class="f25 fw600">{{nums[0]}}</div>
         <div class="mt5 f12">
-          实时交易额<span class="colorGreen">(元)</span>
+          浏览量<span class="colorGreen"></span>
         </div>
       </div>
       <div class="textCenter">
         <div class="f25 fw600">{{nums[1]}}</div>
         <div class="mt5 f12">
-          实时交易订单<span class="colorGreen">(单)</span>
+          实时交易额<span class="colorGreen">(元)</span>
         </div>
       </div>
       <div class="textCenter">
         <div class="f25 fw600 textCenter">{{nums[2]}}</div>
         <div class="mt5 f12">
-          实时在线顾问<span class="colorGreen">(位)</span>
+          实时申请订单<span class="colorGreen">(单)</span>
         </div>
       </div>
       <div class="textCenter">
         <div class="f25 fw600 textCenter">{{nums[3]}}</div>
         <div class="mt5 f12">
-          实时咨询次数<span class="colorGreen">(次)</span>
+          实时咨询人数<span class="colorGreen"></span>
         </div>
       </div>
     </div>
