@@ -6,7 +6,7 @@
         <div class="flexBetween f13">
           <div class="flex">
             <div class="f20 fw600">推荐服务</div>
-            <span class="color2 mt3 ml10">人气推荐，10万用户必选服务</span>
+            <span class="color2 mt3 ml10">人气推荐，10万用户甄选服务</span>
           </div>
           <i class="el-icon-guide mt3 color2 f18"></i>
         </div>
@@ -16,15 +16,11 @@
               <div class="flexBetween">
                 <div class="probg" style="background: #f0f5f5;" v-for="(val,ind) in item" :key="ind+'rem1'">
                   <div class="flex">
-                    <el-tag v-show="ind%2 == 0" class="mr10" type="info">无隐形费用</el-tag>
-                    <el-tag v-show="ind%2 != 0" class="mr10" type="info">全程托管</el-tag>
-                    <el-tag v-show="ind%2 == 0" class="mr10" type="info">专家顾问</el-tag>
-                    <el-tag v-show="ind%2 != 0" class="mr10" type="info">精选服务</el-tag>
-                    <el-tag v-show="ind%2 == 0" class="mr10" type="info">快速高效</el-tag>
+                    <el-tag v-for="tag in val.recomintro" :key="tag" class="mr10" type="info">{{tag}}</el-tag>
                   </div>
                   <div class="f20 fw600 mt10 ml5 flexBetween">
                     <div>{{val.name}}</div>
-                    <div class="colorYellow">￥<span v-text="$common.moneyFormat(val.newprice)"></span></div>
+                    <div v-if="val.newprice" class="colorYellow">￥<span v-text="$common.moneyFormat(val.newprice)"></span></div>
                   </div>
                   <div class="f12 mt15 ml5 color2 textOver2" style="height:30px;line-height:15px;">{{val.description}}</div>
                   <div class="flexAround mt15">
@@ -54,15 +50,11 @@
               <div class="flexBetween">
                 <div class="probg" style="background: #f0f0f5;" v-for="(val,ind) in item" :key="ind+'rem1'">
                   <div class="flex">
-                    <el-tag v-show="ind%2 != 0" class="mr10" type="info">无隐形费用</el-tag>
-                    <el-tag v-show="ind%2 == 0" class="mr10" type="info">全程托管</el-tag>
-                    <el-tag v-show="ind%2 != 0" class="mr10" type="info">专家顾问</el-tag>
-                    <el-tag v-show="ind%2 == 0" class="mr10" type="info">精选服务</el-tag>
-                    <el-tag v-show="ind%2 != 0" class="mr10" type="info">快速高效</el-tag>
+                    <el-tag v-for="tag in val.recomintro" :key="tag" class="mr10" type="info">{{tag}}</el-tag>
                   </div>
                   <div class="f20 fw600 mt10 ml5 flexBetween">
                     <div>{{val.name}}</div>
-                    <div class="colorYellow">￥<span v-text="$common.moneyFormat(val.newprice)"></span></div>
+                    <div v-if="val.newprice" class="colorYellow">￥<span v-text="$common.moneyFormat(val.newprice)"></span></div>
                   </div>
                   <div class="f12 mt15 ml5 color2 textOver2" style="height:30px;line-height:15px;">{{val.description}}</div>
                   <div class="flexAround mt15">
@@ -103,12 +95,10 @@ export default {
         skip: 0,
         limit: 9999999,
         fuzz: "recommend",
-        input: "推荐",
+        input: "是",
       };
       await this.$axios.post(this.$api.findProduct, data).then((res) => {
         let arr = res.data[0].data;
-        arr = arr.concat(arr).concat(arr)
-
         let newArr1 = []
         let newArr2 = []
         arr.map((item,index)=>{
