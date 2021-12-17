@@ -5,7 +5,7 @@
         <div class="circle f25 fw600">专</div>
         <div class="ml10">
           <div class="f20 fw600">专属服务</div>
-          <div class="mt5 f13 color3">服务顾问一对一服务</div>
+          <div class="mt5 f13 color3">资深顾问一对一服务</div>
         </div>
       </div>
       <div class="flex" style="align-items:center">
@@ -43,11 +43,14 @@
       </div>
     </div>
     <div class="lastFonter flexBetween">
-      <div style="padding-top:65px;">
-        <div>举报电话：189-8929-9938</div>
-        <div class="mt30">Copyright 2000-2021 四川铸力金融服务外包有限公司 备案号：蜀ICP备20004812号-1</div>
+      <div style="width:70%">
+        <div class="mr5 mb10">合作伙伴：</div>
+        <Institutions></Institutions>
+        <div class="mt30">举报电话：189-8929-9938</div>
+        <div class="mt30 mb10 pointer" style="" @click="toBeian">Copyright 2000-2021 四川铸力金融服务外包有限公司 备案号: 蜀ICP备20004812号-1
+        </div>
       </div>
-      <div class="textCenter">
+      <div class="textCenter" style="width:30%">
         <img v-if="erweimaList[0]" :src="erweimaList[0].scroimg" style="width:100px;height:100px;" />
         <div class="f12 mt10">扫一扫，关注公众号</div>
       </div>
@@ -57,9 +60,11 @@
 
 <script>
 import UserImg from '@/components/UserImg'
+import Institutions from '@/components/institutions'
 export default {
   components: {
-    UserImg
+    UserImg,
+    Institutions
   },
   data() {
     return {
@@ -72,6 +77,9 @@ export default {
     this.findscroImg()
   },
   methods: {
+    toBeian(){
+      window.location.href='https://beian.miit.gov.cn/'
+    },
     async findscroImg() {
       await this.$axios.post(this.$api.findScrollImg).then(res => {
         this.erweimaList = []
@@ -94,9 +102,6 @@ export default {
         if (res.code == 200) {
           this.consultantList = []
           let arr = res.data[0].data
-          arr = arr.concat(arr).concat(arr)
-          arr = arr.concat(arr)
-
           this.consultantList = arr
         }
       })
@@ -116,7 +121,7 @@ export default {
 <style lang="scss" scoped>
 .box {
   width: 100%;
-  height: 325px;
+  min-height: 35px;
   background: #1d1c24;
 }
 .pj {
