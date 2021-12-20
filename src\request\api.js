@@ -1,104 +1,108 @@
 //api接口统一管理文件
 module.exports = {
     header: [{
-            name: 'create',
-            msg: '新增-'
-        }, {
-            name: 'upload',
-            msg: '上传-'
-        }, {
-            name: 'del',
-            msg: '删除-'
-        }, {
-            name: 'updat',
-            msg: '修改-'
-        }, {
-            name: 'reset',
-            msg: '重置-'
-        }, {
-            name: 'downLoad',
-            msg: '下载-合同文件'
-        },
-        {
-            name: 'Agent',
-            msg: '首页-代办中心'
-        },
-        {
-            name: 'Video',
-            msg: '前端管理-创业学堂'
-        },
-        {
-            name: 'Scroll',
-            msg: '前端管理-轮播图片'
-        },
-        {
-            name: 'Recruiting',
-            msg: '前端管理-招聘专区'
-        },
-        {
-            name: 'Product',
-            msg: '前端管理-产品管理'
-        },
-        {
-            name: 'News',
-            msg: '前端管理-新闻管理'
-        },
-        {
-            name: 'Vipuser',
-            msg: '权限管理-客户管理'
-        },
-        {
-            name: 'User',
-            msg: '权限管理-员工管理'
-        },
-        {
-            name: 'Role',
-            msg: '权限管理-身份管理-角色管理'
-        },
-        {
-            name: 'Team',
-            msg: '权限管理-身份管理-团队管理'
-        },
-        {
-            name: 'Customer',
-            msg: '资料中心-贷款资料'
-        },
-        {
-            name: 'Enterprise',
-            msg: '资料中心-企业资料'
-        },
-        {
-            name: 'Integrate',
-            msg: '业务中心-综合服务'
-        },
-        {
-            name: 'Contract',
-            msg: '资料中心-合同中心'
-        }, {
-            name: 'ProductLogo',
-            msg: '-产品logo'
-        },
-        {
-            name: 'ProductClass',
-            msg: '-产品分类'
-        },
-        {
-            name: 'Iconl',
-            msg: '-分类logo'
-        },
-        {
-            name: 'loginuser',
-            msg: '登录'
-        },
-        {
-            name: 'Password',
-            msg: '密码'
-        },
-        {
-            name: 'Img',
-            msg: '-图片'
-        }
+        name: 'create',
+        msg: '新增-'
+    }, {
+        name: 'upload',
+        msg: '上传-'
+    }, {
+        name: 'del',
+        msg: '删除-'
+    }, {
+        name: 'updat',
+        msg: '修改-'
+    }, {
+        name: 'reset',
+        msg: '重置-'
+    }, {
+        name: 'downLoad',
+        msg: '下载-合同文件'
+    },
+    {
+        name: 'Agent',
+        msg: '首页-代办中心'
+    },
+    {
+        name: 'Video',
+        msg: '前端管理-创业学堂'
+    },
+    {
+        name: 'Scroll',
+        msg: '前端管理-轮播图片'
+    },
+    {
+        name: 'Recruiting',
+        msg: '前端管理-招聘专区'
+    },
+    {
+        name: 'Product',
+        msg: '前端管理-产品管理'
+    },
+    {
+        name: 'News',
+        msg: '前端管理-新闻管理'
+    },
+    {
+        name: 'Vipuser',
+        msg: '权限管理-客户管理'
+    },
+    {
+        name: 'User',
+        msg: '权限管理-员工管理'
+    },
+    {
+        name: 'Role',
+        msg: '权限管理-身份管理-角色管理'
+    },
+    {
+        name: 'Team',
+        msg: '权限管理-身份管理-团队管理'
+    },
+    {
+        name: 'Customer',
+        msg: '资料中心-贷款资料'
+    },
+    {
+        name: 'Enterprise',
+        msg: '资料中心-企业资料'
+    },
+    {
+        name: 'Integrate',
+        msg: '业务中心-综合服务'
+    },
+    {
+        name: 'Contract',
+        msg: '资料中心-合同中心'
+    }, {
+        name: 'ProductLogo',
+        msg: '-产品logo'
+    },
+    {
+        name: 'ProductClass',
+        msg: '-产品分类'
+    },
+    {
+        name: 'Iconl',
+        msg: '-分类logo'
+    },
+    {
+        name: 'loginuser',
+        msg: '登录'
+    },
+    {
+        name: 'Password',
+        msg: '密码'
+    },
+    {
+        name: 'Img',
+        msg: '-图片'
+    }
     ],
+    //访问量统计
+    findStatistics: 'statistics/findStatistics',
+    createStatistics: 'statistics/createStatistics',
+    updateStatistics: 'statistics/updateStatistics',
     //代办中心
     createAgent: 'agents/createAgent',
     deleteAgent: 'agents/deleteAgent',
