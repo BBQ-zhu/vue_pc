@@ -92,9 +92,31 @@ export default {
     }
   },
   async mounted() {
+    await this.statistics();//访问量统计
     await this.findClass();
   },
   methods: {
+    //统计浏览量
+    statistics(){
+      let year = (new Date()).getFullYear()
+      var data = {year:year}
+      this.$axios.post(this.$api.findStatistics, data).then(res => {
+        if (
+          res.code == 200 && res.data.length > 0 
+        ) {
+          let obj = res.data[0]
+          let month = (new Date()).getMonth()
+          obj.monthlist[month] = parseInt(obj.monthlist[month]) + 1 
+          this.$axios.post(this.$api.updateStatistics, obj)
+        }else if(res.code == 200 && res.data.length == 0){
+          let newData = {
+            year:year,
+            monthlist:[0,0,0,0,0,0,0,0,0,0,0,0]
+          }
+          this.$axios.post(this.$api.createStatistics, newData)
+        }
+      })
+    },
     async findClass() {
       this.$axios.post(this.$api.findProductClass).then(res => {
         if (res.code == 200) {
